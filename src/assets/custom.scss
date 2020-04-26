@@ -1,0 +1,362 @@
+@import "node_modules/bootstrap/scss/bootstrap.scss";
+@import "node_modules/bootstrap/scss/_variables.scss";
+@import "~font-awesome/scss/font-awesome";
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+@import url("https://fonts.googleapis.com/css?family=Open Sans");
+.form-control {
+  border-radius: 2px;
+  padding: 20px;
+}
+$active-bg-color: white;
+
+html,
+body {
+  height: 100%;
+  background-color: #fafbfb !important;
+  color: white;
+}
+
+.login-box {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 3px rgba(0, 0, 0, 0.15);
+  padding: 30px 28px 28px;
+  background-color: #fff;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+section {
+  width: 100%;
+  display: inline-block;
+  padding: 30px 0px;
+  font-family: "Raleway";
+}
+a {
+  color: #3676a9;
+}
+a:hover {
+  color: #0142a3;
+}
+nav {
+  width: 100%;
+  border-bottom: 1px solid #d9d9d9;
+  background-color: #ffffff !important;
+  text-align: left;
+}
+
+.logo {
+  width: 100%;
+  display: inline-flex;
+}
+.logo span {
+  padding: 8px 2px;
+  font-size: 14px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Raleway";
+  font-size: 24px;
+  color: #2c2c2c;
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+  padding: 20px 0 20px 0px;
+}
+p {
+  font-size: 14px;
+  padding-top: 10px;
+}
+
+.btn-applynow {
+  width: 100%;
+  height: 40px;
+  font-size: 16px;
+  background-color: #3676a9;
+  padding: 0px 10px;
+  border-radius: 2px;
+  color: white;
+  text-transform: uppercase;
+  line-height: 40px;
+  font-weight: 400;
+}
+.login-form {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  margin-top: 30px;
+}
+.login-form h2 {
+  margin: 0px 0 10px 0px;
+  font-family: "Raleway";
+  font-size: 24px;
+  text-align: center;
+}
+.login-form img {
+  width: 180px;
+  height: 45px;
+  text-align: center;
+}
+
+.mat-checkbox:not(.mat-checkbox-disabled).mat-accent
+  .mat-checkbox-ripple
+  .mat-ripple-element {
+  background-color: #3676a9 !important;
+}
+
+label span {
+  color: #3676a9;
+  font-size: 14px;
+  font-family: "Raleway";
+}
+a.forgot-password {
+  color: #3676a9;
+  font-size: 14px;
+}
+
+a.nav-link {
+  text-decoration: none;
+  font-family: open sans, sans-serif !important;
+  font-size: 16px;
+  font-weight: 400;
+  border-bottom: 2px solid #3676a9;
+  outline: none;
+  padding-bottom: 20px !important;
+}
+.navbar-light .navbar-nav .show > .nav-link,
+.navbar-light .navbar-nav .active > .nav-link,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .nav-link.active {
+  color: #3676a9;
+}
+.navbar {
+  width: 100%;
+  padding: 0 0.5rem !important;
+  background-color: #ffffff !important;
+}
+nav ul li a:hover {
+  text-decoration: none;
+}
+nav ul li a span {
+  padding-left: 10px;
+}
+.bg-light .bg-white-bg {
+  background-color: white;
+}
+.search-box {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 3px rgba(0, 0, 0, 0.15);
+  background-color: #fff;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  text-align: text;
+  font-size: 14px;
+  width: 100%;
+  padding: 20px;
+  margin: 40px 0px;
+}
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.autocomplete-container .suggestions-container .x i {
+  font-size: 25px !important;
+}
+.autocomplete-container .suggestions-container .heading {
+  background-color: #777;
+  color: white !important;
+}
+.fa-question-circle::before {
+  content: "\f059";
+}
+.fa.fa-question-circle {
+  color: #bbb;
+  font-size: 14px;
+  margin-left: 3px;
+  cursor: pointer;
+  transition: color 200ms ease-in-out;
+}
+a:not([href]):not([tabindex]) {
+  color: inherit;
+  text-decoration: none;
+  border: none;
+  color: black;
+}
+a:not([href]):not([tabindex]):focus,
+a:not([href]):not([tabindex]):hover {
+  color: black;
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.show > .btn-outline-primary.dropdown-toggle {
+  color: #fff;
+  background-color: transparent;
+  border-color: transparent;
+  color: black;
+  cursor: pointer;
+}
+.float-right {
+  padding: 0;
+  float: right;
+  position: relative;
+}
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+  border: none !important;
+  cursor: pointer;
+}
+.navbar-expand-lg .navbar-nav .nav-link {
+  cursor: pointer;
+}
+.navbar-nav .dropdown-menu {
+  width: 100%;
+  background-color: lightgray;
+  border-radius: 0px;
+}
+.find-email {
+  text-align: center;
+  width: 100%;
+  margin-top: 40px;
+  background-color: #f3f3f3;
+  padding: 25px 10px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+.at-form {
+  color: #888;
+  float: left;
+  padding: 12px 15px;
+  height: 52px;
+  font-size: 16px;
+}
+.email-finder-message {
+  margin-top: 20px;
+  color: #888;
+}
+
+.search.index .search-results .result .additional_data .name {
+  font-size: 15px;
+  color: #191919;
+  font-weight: 600;
+}
+.main-input-group {
+  width: calc(100% + 8px);
+  transition: all 150ms ease;
+  padding: 0px 20px;
+
+  z-index: 1;
+}
+.ng-autocomplete {
+  max-width: 800px !important;
+}
+.search-box h1 a {
+  cursor: pointer;
+}
+.item {
+  background-color: #f2f2f2 !important;
+  color: black !important;
+}
+.navbar-light .navbar-nav .show > .nav-link,
+.navbar-light .navbar-nav .active > .nav-link,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .nav-link.active {
+  margin-left: 20px;
+}
+.btn-search {
+  background-color: #143279;
+  border: none;
+  padding: 9px 20px;
+}
+.btn-search:hover {
+  background-color: #143279;
+}
+.btn-search-icon {
+  background-color: #143279;
+  border: none;
+  padding: 9px 25px;
+  margin-left: 10px;
+}
+
+.btn-search-icon:hover {
+  background-color: #143279;
+}
+
+.btn-showmore {
+  background-color: #143279;
+  border: none;
+  color: white;
+  border-radius: 20px;
+  padding: 9px 25px;
+  margin: 10px;
+}
+
+.btn-showmore:hover {
+  background-color: #143279;
+  color: white;
+}
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: #143279;
+  border-color: none;
+}
+.email-section-box {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 3px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  text-align: left;
+  font-size: 14px;
+  width: 100%;
+}
+.email-section {
+  width: 100%;
+  padding: 20px 20px;
+  border-bottom: 1px solid #dddddd;
+}
+.email-section:hover {
+  background-color: #f2f6ff;
+}
+.email-section h5 {
+  font-family: "Roboto";
+  text-align: left;
+  color: #222222;
+  font-size: 16px;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+.email-section span {
+  color: #635b5b;
+}
+.counter {
+  font-family: "Raleway";
+  color: #2c2c2c;
+  cursor: pointer;
+  float: left;
+  text-align: center;
+  display: inline-grid;
+  padding-right: 20px;
+  line-height: 18px;
+}
+.fa-chevron-up:active {
+  color: green;
+}
+.fa-chevron-up:not([href]):not([tabindex]):focus,
+.fa-chevron-up:not([href]):not([tabindex]):hover,
+.fa-chevron-up:not([href]):not([tabindex]):active,
+.fa-chevron-up:not([href]):not([tabindex]):visited {
+  color: green;
+  fill: currentColor;
+}
+
+.fa-chevron-down:not([href]):not([tabindex]):focus,
+.fa-chevron-down:not([href]):not([tabindex]):hover,
+.fa-chevron-down:not([href]):not([tabindex]):active,
+.fa-chevron-down:not([href]):not([tabindex]):visited .fa-chevron-down:active {
+  color: orangered;
+}

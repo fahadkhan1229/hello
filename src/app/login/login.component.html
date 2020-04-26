@@ -1,0 +1,109 @@
+<div class="container">
+  <div class="row">
+    <div class="login-form">
+      <img src="assets/logo.png" alt="" class="img-fluid" />
+      <h2>Welcome Leads Logic</h2>
+    </div>
+
+    <div class="col-md-4 offset-md-4 login-box">
+      <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
+        <div
+          class="form-group"
+          [ngClass]="{
+            'has-danger':
+              fullName.invalid && (fullName.dirty || fullName.touched),
+            'has-success':
+              fullName.valid && (fullName.dirty || fullName.touched)
+          }"
+        >
+          <input
+            type="text"
+            class="form-control"
+            name="fullName"
+            placeholder="Username"
+            [(ngModel)]="model.fullName"
+            required
+            #fullName="ngModel"
+          />
+          <div
+            class="form-control-feedback"
+            *ngIf="fullName.errors && (fullName.dirty || fullName.touched)"
+          >
+            <p *ngIf="fullName.errors.required">Username is required</p>
+          </div>
+        </div>
+
+        <div
+          class="form-group"
+          [ngClass]="{
+            'has-danger': email.invalid && (email.dirty || email.touched),
+            'has-success': email.valid && (email.dirty || email.touched)
+          }"
+        >
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            placeholder="Email Address"
+            [(ngModel)]="model.email"
+            required
+            pattern="[^ @]*@[^ @]*"
+            #email="ngModel"
+          />
+          <div
+            class="form-control-feedback"
+            *ngIf="email.errors && (email.dirty || email.touched)"
+          >
+            <p *ngIf="email.errors.required">Email is required</p>
+            <p *ngIf="email.errors.pattern">
+              Email must contain at least the @ character
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="form-group"
+          [ngClass]="{
+            'has-danger':
+              password.invalid && (password.dirty || password.touched),
+            'has-success':
+              password.valid && (password.dirty || password.touched)
+          }"
+        >
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            placeholder="Password"
+            [(ngModel)]="model.password"
+            required
+            minlength="8"
+            #password="ngModel"
+          />
+          <div
+            class="form-control-feedback"
+            *ngIf="password.errors && (password.dirty || password.touched)"
+          >
+            <p *ngIf="password.errors.required">Password is required</p>
+            <p *ngIf="password.errors.minlength">
+              Password must be at least 8 characters long
+            </p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <mat-checkbox>Remember me</mat-checkbox>
+          <a href="#" class="forgot-password float-right">Forget Password ?</a>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-applynow btn-lg btn-block"
+          [disabled]="f.invalid"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
