@@ -19,9 +19,9 @@ $internhouse-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $internhouse-theme: mat-light-theme(
-  $internhouse-primary,
-  $internhouse-accent,
-  $internhouse-warn
+    $internhouse-primary,
+    $internhouse-accent,
+    $internhouse-warn
 );
 
 // Include theme styles for core and each component used in your app.
@@ -32,10 +32,12 @@ $internhouse-theme: mat-light-theme(
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "./assets/custom.scss";
+//@import "node_modules/font-awesome/css/font-awesome.css";
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;

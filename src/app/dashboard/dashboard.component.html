@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light bg-white-bg">
-  <a href="/"><img src="assets/logo.png" /></a>
+  <a href="/"><img src="assets/logo.png"/></a>
 
   <div id="my-nav">
     <ul class="navbar-nav mr-auto">
@@ -17,9 +17,7 @@
         id="dropdownMenuButton"
         ngbDropdownToggle
         class="nav-link dropdown-toggle"
-        data-toggle="dropdown"
-        >Welcome! <i class="fa fa-user-circle-o"></i> Ahmed Khan</a
-      >
+        data-toggle="dropdown">Welcome! <i class="fa fa-user-circle-o"></i></a>
       <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
         <!-- <a ngbDropdownItem class="dropdown-item">Settings</a>
         <div class="dropdown-divider"></div> -->
@@ -28,128 +26,73 @@
     </li>
   </ul>
 </nav>
-
+<div class="alert-danger" *ngIf="loading else loaded" >
+  loading ...
+</div>
 <div class="container">
   <div class="d-flex flex-row">
-    <div class="col-lg-12 col-md-12 text-center">
+    <div class="col-lg-10 col-md-10 mx-auto">
       <div class="search-box">
         <h1>
           Domain Search
           <a
             ngbTooltip="This tooltip gets its inputs from the customized configuration"
-            ><i class="fa fa-question-circle-o"></i
+          ><i class="fa fa-question-circle-o"></i
           ></a>
         </h1>
-        <div class="col-lg-12">
-          <div class="ng-autocomplete">
-            <ng-autocomplete
-              [data]="domains"
-              [searchKeyword]="keyword"
-              placeHolder="Enter the Domain Name"
-              historyIdentifier="domains"
-              [itemTemplate]="itemTemplate"
-              [notFoundTemplate]="notFoundTemplate"
-            >
-            </ng-autocomplete>
 
-            <ng-template #itemTemplate let-item>
-              <div class="item">
-                <img src="{{ item.logo }}" height="25" />
-                <span [innerHTML]="item.name"></span> &nbsp; | &nbsp;
-                <small>Domain: {{ item.domain }}</small> &nbsp; | &nbsp;
-                <small>Results: {{ item.results }}</small>
+        <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+          <div class="input-group main-input-group">
+            <div class="form-control-bg">
+              <input
+                (input)="check($event)"
+                id="domainSearch"
+                formControlName="domainSearch"
+                class="form-control"
+                name="domainSearch"
+                [(ngModel)]="val"
+                placeholder="Enter the domain name"
+                [ngClass]="{ 'is-valid': submitted && f.domainSearch.errors }"
+                required
+              />
+              <div *ngIf="showError" class="alert alert-danger">
+                please enter without www
               </div>
-            </ng-template>
-
-            <ng-template #notFoundTemplate let-notFound>
-              <div [innerHTML]="notFound"></div>
-            </ng-template>
-          </div>
-        </div>
-        <button class="btn btn-primary btn-search btn-xl">
-          <i class="fa fa-search"></i> Search
-        </button>
-
-        <div class="container">
-          <div class="row">
-            <form class="find-email">
-              <div class="input-group main-input-group">
-                <input
-                  autocomplete="off"
-                  autofocus="autofocus"
-                  class="form-control"
-                  id="full-name-field"
-                  placeholder="John Doe"
-                  required="required"
-                  type="text"
-                />
-                <div class="at-form">@</div>
-                <input
-                  autocomplete="off"
-                  class="form-control"
-                  id="domain-field"
-                  placeholder="company.com"
-                  required="required"
-                  type="text"
-                />
-                <span class="input-group-btn">
-                  <button class="btn btn-primary btn-search-icon btn-xl">
-                    <i class="fa fa-search"></i>
-                  </button>
-                </span>
-              </div>
-              <div class="email-finder-result">
-                <div class="email-finder-message">
-                  Enter a full name and the domain name of the email address
-                  (for example "leadslogic.com").
-                </div>
-                <div class="email-finder-result-container"></div>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <div class="container">
-          <div class="row">
-            <div class="email-section-box">
               <div
-                *ngFor="let email of emails | slice: startPage:paginationLimit"
-                class="email-section"
+                *ngIf="submitted && f.domainSearch.errors"
+                class="alert alert-danger"
               >
-                <div class="counter">
-                  <a (click)="increment()">
-                    <i class="fa fa-chevron-up"></i>
-                  </a>
-                  {{ counterValue }}
-                  <a (click)="decrement()">
-                    <i class="fa fa-chevron-down"></i>
-                  </a>
+                <div *ngIf="f.domainSearch.errors.required">
+                  Domain name is required
                 </div>
-                <h5>
-                  {{ email.name }}
-                </h5>
-
-                <span>{{ email.emailid }}</span>
               </div>
-
-              <button
-                class="btn btn-showmore"
-                *ngIf="paginationLimit < emails.length"
-                (click)="showMoreItems()"
-              >
-                Show More
-              </button>
-              <button
-                class="btn btn-showmore"
-                *ngIf="paginationLimit > emails.length"
-                (click)="showLessItems()"
-              >
-                Show Less
-              </button>
             </div>
+
+            <span class="input-group-btn">
+              <button
+                (click)="emailSearch()"
+                class="btn btn-primary btn-search" id="btnFetch">Search</button>
+
+              <!-- <button
+                (click)="emailSearch()"
+                class="btn btn-primary btn-search"
+              >
+                Search
+              </button> -->
+            </span>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
+
+
+  <app-email-search
+    [showSearchPartially]="showEmailSearch"
+    [childMessage]="parentMessage"
+    [domainName]="val"
+    [leadoffset]="offset"
+    [isDisable]="false">
+  </app-email-search>
+
 </div>

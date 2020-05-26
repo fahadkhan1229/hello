@@ -38,3 +38,41 @@
 span {
   font-family: "Raleway";
 }
+
+.form-control-bg {
+  height: 41px;
+  padding-right: 10px;
+}
+.form-control {
+  font-size: 15px;
+  max-width: 100%;
+  width: 700px;
+}
+
+.form-control-bg button {
+  border: 0;
+  background-color: #f25321;
+  /** belows styles are working good */
+  padding: 5px 12px;
+  margin-top: 0;
+  position: absolute;
+  right: 19px;
+  bottom: 15%;
+  /* IE7-8 doesn't have border-radius, so don't indent the padding */
+  margin-bottom: 0;
+  -webkit-border-radius-left: 3px;
+  -moz-border-radius-left: 3px;
+
+  -webkit-border-radius-right: 3px;
+  -moz-border-radius-right: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  color: white;
+  cursor: pointer;
+  z-index: 999999999;
+}
+
+.form-control-bg button span {
+  font-family: "Montserrat-Regular";
+  font-size: 15px;
+}

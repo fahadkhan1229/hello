@@ -116,7 +116,17 @@ a.forgot-password {
   color: #3676a9;
   font-size: 14px;
 }
-
+.fa-user-circle-o:before {
+  padding: 0px 5px !important;
+}
+.fa-question-circle-o:before {
+  font-size: 15px;
+  color: darkgrey;
+}
+.btn:hover {
+  color: #a1c1e0 !important;
+  text-decoration: none;
+}
 a.nav-link {
   text-decoration: none;
   font-family: open sans, sans-serif !important;
@@ -125,6 +135,7 @@ a.nav-link {
   border-bottom: 2px solid #3676a9;
   outline: none;
   padding-bottom: 20px !important;
+  padding-left: 10px;
 }
 .navbar-light .navbar-nav .show > .nav-link,
 .navbar-light .navbar-nav .active > .nav-link,
@@ -220,11 +231,11 @@ a:not([href]):not([tabindex]):hover {
 .find-email {
   text-align: center;
   width: 100%;
-  margin-top: 40px;
   background-color: #f3f3f3;
   padding: 25px 10px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+}
+.input-group {
+  padding: 0px 20px !important;
 }
 .at-form {
   color: #888;
@@ -270,6 +281,7 @@ a:not([href]):not([tabindex]):hover {
   background-color: #143279;
   border: none;
   padding: 9px 20px;
+  width: 100%;
 }
 .btn-search:hover {
   background-color: #143279;
@@ -323,15 +335,28 @@ a:not([href]):not([tabindex]):hover {
   background-color: #f2f6ff;
 }
 .email-section h5 {
-  font-family: "Roboto";
+  font-family: "Raleway";
   text-align: left;
-  color: #222222;
+  color: #6d8e69;
   font-size: 16px;
-  text-transform: uppercase;
+  text-transform: capitalize;
   margin-top: 5px;
+  font-weight: 600;
+}
+.email-section h6 {
+  font-family: "Raleway";
+  text-align: left;
+  color: #999;
+  font-size: 13px;
+  text-transform: capitalize;
+  margin-top: 5px;
+  display: inline-block;
+  padding-left: 25px;
 }
 .email-section span {
   color: #635b5b;
+  text-transform: capitalize;
+  font-family: "Raleway";
 }
 .counter {
   font-family: "Raleway";
@@ -342,6 +367,7 @@ a:not([href]):not([tabindex]):hover {
   display: inline-grid;
   padding-right: 20px;
   line-height: 18px;
+  margin-top: 7px;
 }
 .fa-chevron-up:active {
   color: green;
@@ -359,4 +385,17 @@ a:not([href]):not([tabindex]):hover {
 .fa-chevron-down:not([href]):not([tabindex]):active,
 .fa-chevron-down:not([href]):not([tabindex]):visited .fa-chevron-down:active {
   color: orangered;
+}
+.navbar-expand-lg .navbar-nav .nav-link {
+  margin-top: 15px !important;
+}
+.autocomplete-container .input-container input {
+  border: 1px solid #ced4da !important;
+  border-radius: 2px !important;
+}
+.autocomplete-container {
+  box-shadow: none !important;
+}
+.ng-autocomplete {
+  max-width: 700px !important;
 }

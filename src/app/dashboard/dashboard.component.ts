@@ -1,123 +1,158 @@
-import { Component, OnInit } from "@angular/core";
-import { NgbTooltipConfig } from "@ng-bootstrap/ng-bootstrap";
+import {Leads} from './../model/leads';
+import {CommonService} from './../common.service';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {NgbTooltipConfig} from '@ng-bootstrap/ng-bootstrap';
+import {Validators, FormGroup, FormBuilder} from '@angular/forms';
 
 @Component({
-  selector: "app-dashboard",
-  templateUrl: "./dashboard.component.html",
-  styleUrls: ["./dashboard.component.scss"],
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss'],
   providers: [NgbTooltipConfig],
 })
 export class DashboardComponent implements OnInit {
-  title: String;
-  emails: any;
-  startPage: Number;
-  paginationLimit: Number;
 
-  keyword = "name";
-  domains = [
-    {
-      name: "Netflix",
-      domain: "www.netflix.com",
-      results: "2.978 Emails",
-      logo:
-        "https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg",
-    },
-    {
-      name: "Amazon",
-      domain: "www.amazon.com",
-      results: "39.14 Emails",
-      logo:
-        "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg",
-    },
-    {
-      name: "Netflix",
-      domain: "www.netflix.com",
-      results: "20.27 Emails",
-      logo:
-        "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg",
-    },
-    {
-      name: "Amazon",
-      domain: "www.amazon.com",
-      results: "39.14 Emails",
-      logo:
-        "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg",
-    },
-
-    {
-      name: "Netflix",
-      domain: "www.amazon.com",
-      results: "39.14 Emails",
-      logo:
-        "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg",
-    },
-
-    {
-      name: "Amazon",
-      domain: "www.amazon.com",
-      results: "39.14 Emails",
-      logo:
-        "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg",
-    },
-
-    {
-      name: "Netflix",
-      domain: "www.amazon.com",
-      results: "39.14 Emails",
-      logo:
-        "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg",
-    },
-  ];
-
-  constructor(config: NgbTooltipConfig) {
+  constructor(
+    private formBuilder: FormBuilder,
+    config: NgbTooltipConfig,
+    private api: CommonService
+  ) {
     // customize default values of tooltips used by this component tree
-    config.placement = "right";
-    config.triggers = "click";
-
-    this.emails = [
-      { id: 1, name: "Cristine Crazie", emailid: "crisinte-craze@gmail.com" },
-      { id: 2, name: "Christy Grosz", emailid: "cgrosz@netflix.com" },
-      { id: 3, name: "Nasim Cambron", emailid: "ncambron@netflix.com" },
-      { id: 4, name: "Amina Fishburn", emailid: "afishburn@netflix.com" },
-      { id: 5, name: "Lyn Cowan", emailid: "lcowan@netflix.com" },
-      { id: 6, name: "Kristy Chan", emailid: "kchan@netflix.com" },
-      { id: 7, name: "Pedro Navarro", emailid: "pnavarro@netflix.com" },
-      { id: 8, name: "Isadora Laban", emailid: "ilaban@netflix.com" },
-      { id: 9, name: "Keiko Shimabukuro", emailid: "kshimabukuro@netflix.com" },
-      { id: 10, name: "Kristin Kirland", emailid: "kkirland@netflix.com" },
-      { id: 11, name: "Cristine Crazie", emailid: "crisinte-craze@gmail.com" },
-      { id: 12, name: "Christy Grosz", emailid: "cgrosz@netflix.com" },
-      { id: 13, name: "Nasim Cambron", emailid: "ncambron@netflix.com" },
-      { id: 14, name: "Amina Fishburn", emailid: "afishburn@netflix.com" },
-      { id: 15, name: "Lyn Cowan", emailid: "lcowan@netflix.com" },
-      { id: 16, name: "Lyn Cowan", emailid: "lcowan@netflix.com" },
-      { id: 17, name: "Kristy Chan", emailid: "kchan@netflix.com" },
-      { id: 18, name: "Pedro Navarro", emailid: "pnavarro@netflix.com" },
-      { id: 19, name: "Isadora Laban", emailid: "ilaban@netflix.com" },
-      {
-        id: 20,
-        name: "Keiko Shimabukuro",
-        emailid: "kshimabukuro@netflix.com",
-      },
-    ];
-
-    this.startPage = 0;
-    this.paginationLimit = 8;
-  }
-  showMoreItems() {
-    this.paginationLimit = Number(this.paginationLimit) + 5;
-  }
-  showLessItems() {
-    this.paginationLimit = Number(this.paginationLimit) - 5;
+    config.placement = 'right';
+    config.triggers = 'click';
   }
 
-  public counterValue: number = 0;
-  increment() {
-    this.counterValue++;
+  get f() {
+    return this.searchForm.controls;
   }
-  decrement() {
-    this.counterValue--;
+  submitted = false;
+  searchForm: FormGroup;
+
+  responseAPI: any;
+
+  showEmailSearch = false;
+  isDisableButton = false;
+  val = '';
+  parentMessage;
+  lead: Leads;
+  loaded = false;
+  loading = true;
+
+  keyword = 'name';
+  // domains = [
+  //   {
+  //     name: "Netflix",
+  //     domain: "www.netflix.com",
+  //     results: "2.978 Emails",
+  //     logo:
+  //       "https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg",
+  //   },
+  //   {
+  //     name: "Amazon",
+  //     domain: "www.amazon.com",
+  //     results: "39.14 Emails",
+  //     logo:
+  //       "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg",
+  //   },
+  //   {
+  //     name: "Netflix",
+  //     domain: "www.netflix.com",
+  //     results: "20.27 Emails",
+  //     logo:
+  //       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg",
+  //   },
+  //   {
+  //     name: "Amazon",
+  //     domain: "www.amazon.com",
+  //     results: "39.14 Emails",
+  //     logo:
+  //       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg",
+  //   },
+
+  //   {
+  //     name: "Netflix",
+  //     domain: "www.amazon.com",
+  //     results: "39.14 Emails",
+  //     logo:
+  //       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg",
+  //   },
+
+  //   {
+  //     name: "Amazon",
+  //     domain: "www.amazon.com",
+  //     results: "39.14 Emails",
+  //     logo:
+  //       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg",
+  //   },
+
+  //   {
+  //     name: "Netflix",
+  //     domain: "www.amazon.com",
+  //     results: "39.14 Emails",
+  //     logo:
+  //       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg",
+  //   },
+  // ];
+
+  leads;
+
+  lead_name = '';
+  lead_title = '';
+  lead_company = '';
+  lead_email = '';
+  lead_domain = '';
+  offset = 0;
+  limit = 8;
+  private showError: boolean;
+  loading: boolean;
+
+  @Output() messageEvent = new EventEmitter<Leads>();
+
+  leadObj: Leads = new Leads(
+    (this.lead_domain = this.val),
+    (this.offset = 0),
+    (this.limit = 8)
+  );
+
+  ngOnInit() {
+    this.searchForm = this.formBuilder.group({
+      domainSearch: ['', Validators.required],
+    });
   }
 
-  ngOnInit() {}
+  onSubmit() {
+    this.submitted = true;
+    if (this.searchForm.invalid) {
+      return;
+    }
+
+    // display form values on success
+    // alert("SUCCESS!! :-)\n\n" + JSON.stringify(this.searchForm.value, null, 4));
+  }
+
+
+  emailSearch() {
+    this.showEmailSearch = !this.showEmailSearch;
+
+    console.log(this.val);
+    this.leadObj.domain = this.val;
+    console.log(this.leadObj);
+    this.api.leadByDomain(this.leadObj).subscribe((lead) => {
+      console.log('Lead', lead);
+      this.loading = true;
+      this.parentMessage = lead;
+      this.isDisableButton = false;
+      console.log('disable value', this.isDisableButton);
+    });
+  }
+
+  check($event: Event) {
+    // @ts-ignore
+    if ($event.target.value.indexOf('www') >= 0) {
+      this.showError = true;
+    } else {
+      this.showError = false;
+    }
+  }
+
 }
