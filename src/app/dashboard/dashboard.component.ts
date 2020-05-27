@@ -135,18 +135,21 @@ export class DashboardComponent implements OnInit {
 
 
   emailSearch() {
+
     console.log(this.val);
     this.leadObj.domain = this.val;
     console.log(this.leadObj);
     this.api.leadByDomain(this.leadObj).subscribe((lead) => {
       console.log('Lead', lead);
       if (Object.keys(lead).length > 0) {
+
         this.spinner.show();
         setTimeout(() => {
           /** spinner ends after 2 seconds */
           this.spinner.hide();
         }, 1000);
         this.showEmailSearch = true;
+        this.showNoRecord = false;
 
       } else {
         this.spinner.show();
