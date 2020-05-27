@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light bg-white-bg">
+  <a href="/"><img src="assets/logo.png"/></a>
+
+  <div id="my-nav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/dashboard">
+          <i class="fa fa-search"></i> <span>Search</span>
+        </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/upload">
+          <i class="fa fa-upload"></i> <span>Upload File</span>
+        </a>
+      </li>
+    </ul>
+
+  </div>
+
+  <ul class="nav navbar-nav ml-auto">
+    <li ngbDropdown class="nav-item dropdown">
+      <a
+        id="dropdownMenuButton"
+        ngbDropdownToggle
+        class="nav-link dropdown-toggle"
+        data-toggle="dropdown">Welcome! <i class="fa fa-user-circle-o"></i></a>
+      <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+        <!-- <a ngbDropdownItem class="dropdown-item">Settings</a>
+        <div class="dropdown-divider"></div> -->
+        <a ngbDropdownItem class="dropdown-item">Logout</a>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+<div class="container">
+  <h3>Upload File</h3>
+
+  <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
+    <div class="row">
+      <div class="col-sm-12">
+        <div>
+          <h6 class="head-title margin-top-8"><span>UPLOAD</span></h6>
+        </div>
+      </div>
+
+      <div class="col-sm-6 text-center">
+
+        <div class="custom-file">
+          <input type="file"
+                 accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                 class="custom-file-input" id="customFile" name="myfile"
+                 (change)="onFileSelect($event)" #UploadFileInput>
+          <label class="custom-file-label" for="customFile">{{fileInputLabel || 'Choose File'}}</label>
+        </div>
+
+      </div>
+      <div class="col-sm-6 text-center">
+        <button class="btn btn-primary" type="submit">Upload</button>
+      </div>
+    </div>
+  </form>
+</div>

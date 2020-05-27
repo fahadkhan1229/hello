@@ -1,8 +1,9 @@
-import {Leads} from './../model/leads';
-import {CommonService} from './../common.service';
+import {Leads} from '../model/leads';
+import {CommonService} from '../common.service';
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {NgbTooltipConfig} from '@ng-bootstrap/ng-bootstrap';
 import {Validators, FormGroup, FormBuilder} from '@angular/forms';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +16,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     config: NgbTooltipConfig,
-    private api: CommonService
+    private api: CommonService,
+    private spinner: NgxSpinnerService
   ) {
     // customize default values of tooltips used by this component tree
     config.placement = 'right';
@@ -25,18 +27,16 @@ export class DashboardComponent implements OnInit {
   get f() {
     return this.searchForm.controls;
   }
+
   submitted = false;
   searchForm: FormGroup;
-
   responseAPI: any;
-
   showEmailSearch = false;
   isDisableButton = false;
   val = '';
   parentMessage;
   lead: Leads;
-  loaded = false;
-  loading = true;
+
 
   keyword = 'name';
   // domains = [
@@ -104,7 +104,7 @@ export class DashboardComponent implements OnInit {
   offset = 0;
   limit = 8;
   private showError: boolean;
-  loading: boolean;
+  showNoRecord = false;
 
   @Output() messageEvent = new EventEmitter<Leads>();
 
@@ -114,10 +114,13 @@ export class DashboardComponent implements OnInit {
     (this.limit = 8)
   );
 
+
   ngOnInit() {
     this.searchForm = this.formBuilder.group({
       domainSearch: ['', Validators.required],
     });
+    this.showNoRecord = false;
+
   }
 
   onSubmit() {
@@ -132,14 +135,28 @@ export class DashboardComponent implements OnInit {
 
 
   emailSearch() {
-    this.showEmailSearch = !this.showEmailSearch;
-
     console.log(this.val);
     this.leadObj.domain = this.val;
     console.log(this.leadObj);
     this.api.leadByDomain(this.leadObj).subscribe((lead) => {
       console.log('Lead', lead);
-      this.loading = true;
+      if (Object.keys(lead).length > 0) {
+        this.spinner.show();
+        setTimeout(() => {
+          /** spinner ends after 2 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.showEmailSearch = true;
+
+      } else {
+        this.spinner.show();
+        setTimeout(() => {
+          /** spinner ends after 2 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.showEmailSearch = false;
+        this.showNoRecord = true;
+      }
       this.parentMessage = lead;
       this.isDisableButton = false;
       console.log('disable value', this.isDisableButton);

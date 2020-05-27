@@ -4,8 +4,13 @@
   <div id="my-nav">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/dashboard">
+        <a class="nav-link" routerLink="/dashboard">
           <i class="fa fa-search"></i> <span>Search</span>
+        </a>
+      </li>
+      <li class="nav-item " style="margin-left: 10px">
+        <a class="nav-link" routerLink="/upload">
+          <i class="fa fa-upload"></i> <span>Upload File</span>
         </a>
       </li>
     </ul>
@@ -26,19 +31,14 @@
     </li>
   </ul>
 </nav>
-<div class="alert-danger" *ngIf="loading else loaded" >
-  loading ...
-</div>
+
 <div class="container">
   <div class="d-flex flex-row">
     <div class="col-lg-10 col-md-10 mx-auto">
       <div class="search-box">
-        <h1>
-          Domain Search
-          <a
-            ngbTooltip="This tooltip gets its inputs from the customized configuration"
-          ><i class="fa fa-question-circle-o"></i
-          ></a>
+        <h1> Domain Search
+          <a ngbTooltip="This tooltip gets its inputs from the customized configuration">
+            <i class="fa fa-question-circle-o"></i> </a>
         </h1>
 
         <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
@@ -53,18 +53,12 @@
                 [(ngModel)]="val"
                 placeholder="Enter the domain name"
                 [ngClass]="{ 'is-valid': submitted && f.domainSearch.errors }"
-                required
-              />
+                required/>
               <div *ngIf="showError" class="alert alert-danger">
                 please enter without www
               </div>
-              <div
-                *ngIf="submitted && f.domainSearch.errors"
-                class="alert alert-danger"
-              >
-                <div *ngIf="f.domainSearch.errors.required">
-                  Domain name is required
-                </div>
+              <div *ngIf="submitted && f.domainSearch.errors" class="alert alert-danger">
+                <div *ngIf="f.domainSearch.errors.required">Domain name is required</div>
               </div>
             </div>
 
@@ -86,7 +80,11 @@
     </div>
   </div>
 
-
+  <ngx-spinner
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple">
+  </ngx-spinner>
   <app-email-search
     [showSearchPartially]="showEmailSearch"
     [childMessage]="parentMessage"
@@ -94,5 +92,5 @@
     [leadoffset]="offset"
     [isDisable]="false">
   </app-email-search>
-
+  <div *ngIf="showNoRecord"><h3>No record Found</h3></div>
 </div>

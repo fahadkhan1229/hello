@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
-import { NgxSpinnerService } from "ngx-spinner";
+import {Component} from "@angular/core";
+import {NgxSpinnerService} from "ngx-spinner";
+
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -8,15 +9,16 @@ import { NgxSpinnerService } from "ngx-spinner";
 export class AppComponent {
   title = "Leads Logic";
 
-  constructor(private spinner: NgxSpinnerService) {}
+  constructor(private spinner: NgxSpinnerService) {
+  }
 
   ngOnInit() {
     /** spinner starts on init */
     this.spinner.show();
 
     setTimeout(() => {
-      /** spinner ends after 5 seconds */
+      /** spinner ends after 2 seconds */
       this.spinner.hide();
-    }, 5000);
+    }, 2000);
   }
 }

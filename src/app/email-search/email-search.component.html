@@ -1,0 +1,86 @@
+<div class="spinner-wrapper">
+</div>
+<div *ngIf="showSearchPartially">
+  <div class="container">
+    <div class="d-flex flex-row">
+      <div class="col-lg-10 mx-auto">
+        <form class="find-email">
+          <div class="col-md-11 mx-auto">
+            <div class="input-group main-input-group">
+              <input
+                autocomplete="on"
+                autofocus="autofocus"
+                class="form-control"
+                id="full-name-field"
+                [(ngModel)]="nameValue"
+                name="full-name-field"
+                placeholder="John Doe"
+                required="required"
+                type="text"
+              />
+              <span class="input-group-btn">
+                <button
+                  (click)="emailList()"
+                  class="btn btn-primary btn-search-icon btn-xl"
+                >
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="email-finder-result">
+            <div class="email-finder-message">
+              Enter a full name and the domain name of the email address (for
+              example "leadslogic.com").
+            </div>
+            <div class="email-finder-result-container"></div>
+          </div>
+        </form>
+        <div class="email-section-box">
+          <div
+            *ngFor="
+              let email of childMessage | slice: startPage:paginationLimit
+            "
+            class="email-section"
+          >
+            <div class="counter">
+              <!-- <a (click)="increment()">
+                <i class="fa fa-chevron-up"></i>
+              </a> -->
+              {{ counterValue }}
+              <a (click)="decrement()">
+                <i class="fa fa-arrow-down"></i>
+              </a>
+            </div>
+            <h5>
+              {{ email.lead_name }}
+            </h5>
+            <!-- {{ email.emailid }} -->
+            <span>{{ email.lead_email }}</span>
+
+            <h6>{{ email.lead_title }}</h6>
+            <h6>{{ email.lead_company }}</h6>
+          </div>
+          <!-- *ngIf="childMessage.Status.length > 1" -->
+          <!-- "childMessage?.length < 8 || childMessage?.length == 0" -->
+          <!-- [disabled] = "isDisable" -->
+          <button
+            class="btn btn-showmore"
+            id="showMore"
+            *ngIf="!(countArray < 8)"
+            (click)="showMoreItems()"
+          >
+            Show More
+          </button>
+          <button
+            class="btn btn-showmore"
+            *ngIf="leadObj.offset >= 8"
+            (click)="showLessItems()"
+          >
+            Show Less
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
