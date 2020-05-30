@@ -11,6 +11,9 @@ export class UploadComponent implements OnInit {
   @ViewChild('UploadFileInput', {static: false}) uploadFileInput: ElementRef;
   fileUploadForm: FormGroup;
   fileInputLabel: string;
+  private file: any;
+  errorMessage: boolean;
+  successMessage: boolean;
 
   constructor(private http: HttpClient,
               private formBuilder: FormBuilder) {
@@ -26,8 +29,7 @@ export class UploadComponent implements OnInit {
   onFileSelect(event) {
     const af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'];
     if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      console.log(file);
+      this.file = event.target.files[0];
       //
       // if (!_.includes(af, file.type)) {
       //   alert('Only EXCEL Docs Allowed!');
@@ -41,19 +43,25 @@ export class UploadComponent implements OnInit {
 
   onFormSubmit() {
     const formData = new FormData();
-    formData.append('formFile', this.fileUploadForm.get('myfile').value);
-    formData.append('agentId', '007');
+    formData.append('file', this.file);
+    // formData.append('file', this.fileUploadForm.get('myfile').value);
+    // formData.append('agentId', '007');
 
 
-    this.http.post<any>('http://api.leadslogics.com:8000/api/upload', formData).subscribe(response => {
-      console.log(response);
+    this.http.post<any>('http://api.leadslogics.com/api/upload', formData).subscribe(response => {
+      this.successMessage = true;
+      location.reload();
       if (response.statusCode === 200) {
         // Reset the file input
         this.uploadFileInput.nativeElement.value = '';
         this.fileInputLabel = undefined;
+
+
       }
     }, error => {
       console.log(error);
+      this.errorMessage = true;
+      location.reload();
     });
   }
 }

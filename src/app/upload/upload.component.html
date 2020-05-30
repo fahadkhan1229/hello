@@ -41,6 +41,8 @@
       <div class="col-sm-12">
         <div>
           <h6 class="head-title margin-top-8"><span>UPLOAD</span></h6>
+          <div style="color: red" *ngIf="errorMessage == true"> Uploading Failed</div>
+          <div style="color: green" *ngIf="successMessage == true"> File Uploaded Successfully</div>
         </div>
       </div>
 
