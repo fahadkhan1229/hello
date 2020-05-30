@@ -1,11 +1,13 @@
 <div class="container">
   <div class="row">
     <div class="login-form">
-      <img src="assets/logo.png" alt="" class="img-fluid" />
+      <img src="assets/logo.png" alt="" class="img-fluid"/>
       <h2>Welcome Leads Logic</h2>
     </div>
 
     <div class="col-md-4 offset-md-4 login-box">
+      <div style="color: red" *ngIf="errorMessage == true"> Incorrect user name and password</div>
+
       <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
         <div
           class="form-group"
@@ -21,14 +23,13 @@
             class="form-control"
             name="fullName"
             placeholder="Username"
-            [(ngModel)]="model.fullName"
+            [(ngModel)]="login.fullName"
             required
             #fullName="ngModel"
           />
           <div
             class="form-control-feedback"
-            *ngIf="fullName.errors && (fullName.dirty || fullName.touched)"
-          >
+            *ngIf="fullName.errors && (fullName.dirty || fullName.touched)">
             <p *ngIf="fullName.errors.required">Username is required</p>
           </div>
         </div>
@@ -45,7 +46,7 @@
             class="form-control"
             name="email"
             placeholder="Email Address"
-            [(ngModel)]="model.email"
+            [(ngModel)]="login.email"
             required
             pattern="[^ @]*@[^ @]*"
             #email="ngModel"
@@ -75,7 +76,7 @@
             class="form-control"
             name="password"
             placeholder="Password"
-            [(ngModel)]="model.password"
+            [(ngModel)]="login.password"
             required
             minlength="8"
             #password="ngModel"

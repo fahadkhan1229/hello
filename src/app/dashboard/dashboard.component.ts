@@ -4,6 +4,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {NgbTooltipConfig} from '@ng-bootstrap/ng-bootstrap';
 import {Validators, FormGroup, FormBuilder} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +18,8 @@ export class DashboardComponent implements OnInit {
     private formBuilder: FormBuilder,
     config: NgbTooltipConfig,
     private api: CommonService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private auth: AuthService
   ) {
     // customize default values of tooltips used by this component tree
     config.placement = 'right';
@@ -175,4 +177,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  logout() {
+    this.auth.logout();
+  }
 }

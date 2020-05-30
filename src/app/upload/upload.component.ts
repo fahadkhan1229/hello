@@ -45,7 +45,7 @@ export class UploadComponent implements OnInit {
     formData.append('agentId', '007');
 
 
-    this.http.post<any>('http://api', formData).subscribe(response => {
+    this.http.post<any>('http://api.leadslogics.com:8000/api/upload', formData).subscribe(response => {
       console.log(response);
       if (response.statusCode === 200) {
         // Reset the file input

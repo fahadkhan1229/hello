@@ -25,6 +25,8 @@ import {EmailSearchComponent} from './email-search/email-search.component';
 import {HttpClientModule} from '@angular/common/http';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {UploadComponent} from './upload/upload.component';
+import {AuthService} from './auth/auth.service';
+import {JwtModule} from "@auth0/angular-jwt";
 
 @NgModule({
   declarations: [
@@ -53,6 +55,12 @@ import {UploadComponent} from './upload/upload.component';
     AngularFontAwesomeModule,
     AutocompleteLibModule,
     NgbModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: AuthService.tokenGetter,
+        authScheme: 'Token'
+      }
+    }),
   ],
   exports: [
     MatButtonModule,
