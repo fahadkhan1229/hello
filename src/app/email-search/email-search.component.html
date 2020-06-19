@@ -1,4 +1,4 @@
-<div class="spinner-wrapper">
+<div class="spinner-wrapper" xmlns="http://www.w3.org/1999/html">
 </div>
 <div *ngIf="showSearchPartially">
   <div class="container">
@@ -20,7 +20,7 @@
               />
               <span class="input-group-btn">
                 <button
-                  (click)="emailList()"
+                  (click)="getArray()"
                   class="btn btn-primary btn-search-icon btn-xl"
                 >
                   <i class="fa fa-search"></i>
@@ -37,21 +37,19 @@
           </div>
         </form>
         <div class="email-section-box">
-          <div
-            *ngFor="
-              let email of childMessage | slice: startPage:paginationLimit
-            "
-            class="email-section"
-          >
-            <div class="counter">
-              <!-- <a (click)="increment()">
-                <i class="fa fa-chevron-up"></i>
-              </a> -->
-              {{ counterValue }}
-              <a (click)="decrement()">
-                <i class="fa fa-arrow-down"></i>
-              </a>
-            </div>
+          <div *ngFor="let email of childMessage | paginate: { id: 'pa',
+                                                   itemsPerPage: 7,
+                                                     currentPage: p
+                                                   }" class="email-section">
+            <!--            <div class="counter">-->
+            <!--              <a (click)="increment()">-->
+            <!--                <i class="fa fa-chevron-up"></i>&ndash;&gt;-->
+            <!--              </a> &ndash;&gt;-->
+            <!--              {{ counterValue }}-->
+            <!--              <a (click)="decrement()">-->
+            <!--                <i class="fa fa-arrow-down"></i>-->
+            <!--              </a>-->
+            <!--            </div>-->
             <h5>
               {{ email.lead_name }}
             </h5>
@@ -64,21 +62,20 @@
           <!-- *ngIf="childMessage.Status.length > 1" -->
           <!-- "childMessage?.length < 8 || childMessage?.length == 0" -->
           <!-- [disabled] = "isDisable" -->
-          <button
-            class="btn btn-showmore"
-            id="showMore"
-            *ngIf="!(countArray < 8)"
-            (click)="showMoreItems()"
-          >
-            Show More
-          </button>
-          <button
-            class="btn btn-showmore"
-            *ngIf="leadObj.offset >= 8"
-            (click)="showLessItems()"
-          >
-            Show Less
-          </button>
+
+          <pagination-controls id="pa"
+                               (pageChange)="p=$event"
+                               maxSize="9"
+                               directionLinks="true"
+                               autoHide="true"
+                               responsive="true"
+                               previousLabel="Previous"
+                               nextLabel="Next"
+                               screenReaderPaginationLabel="Pagination"
+                               screenReaderPageLabel="page"
+                               screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+
         </div>
       </div>
     </div>

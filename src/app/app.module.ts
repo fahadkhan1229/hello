@@ -21,12 +21,15 @@ import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {EmailSearchComponent} from './email-search/email-search.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 import {HttpClientModule} from '@angular/common/http';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {UploadComponent} from './upload/upload.component';
 import {AuthService} from './auth/auth.service';
 import {JwtModule} from "@auth0/angular-jwt";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [
@@ -53,6 +56,7 @@ import {JwtModule} from "@auth0/angular-jwt";
     MatProgressSpinnerModule,
     AppRoutingModule,
     AngularFontAwesomeModule,
+    MatPaginatorModule,
     AutocompleteLibModule,
     NgbModule.forRoot(),
     JwtModule.forRoot({
@@ -61,6 +65,7 @@ import {JwtModule} from "@auth0/angular-jwt";
         authScheme: 'Token'
       }
     }),
+    MatTableModule,
   ],
   exports: [
     MatButtonModule,

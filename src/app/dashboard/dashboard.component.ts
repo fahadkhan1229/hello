@@ -1,6 +1,6 @@
 import {Leads} from '../model/leads';
 import {CommonService} from '../common.service';
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {NgbTooltipConfig} from '@ng-bootstrap/ng-bootstrap';
 import {Validators, FormGroup, FormBuilder} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -14,12 +14,8 @@ import {AuthService} from '../auth/auth.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(
-    private formBuilder: FormBuilder,
-    config: NgbTooltipConfig,
-    private api: CommonService,
-    private spinner: NgxSpinnerService,
-    private auth: AuthService
+  constructor(private formBuilder: FormBuilder, config: NgbTooltipConfig, private api: CommonService, private spinner: NgxSpinnerService,
+              private auth: AuthService
   ) {
     // customize default values of tooltips used by this component tree
     config.placement = 'right';
@@ -29,6 +25,7 @@ export class DashboardComponent implements OnInit {
   get f() {
     return this.searchForm.controls;
   }
+
 
   submitted = false;
   searchForm: FormGroup;
@@ -41,60 +38,60 @@ export class DashboardComponent implements OnInit {
 
 
   keyword = 'name';
-  // domains = [
-  //   {
-  //     name: "Netflix",
-  //     domain: "www.netflix.com",
-  //     results: "2.978 Emails",
-  //     logo:
-  //       "https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg",
-  //   },
-  //   {
-  //     name: "Amazon",
-  //     domain: "www.amazon.com",
-  //     results: "39.14 Emails",
-  //     logo:
-  //       "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg",
-  //   },
-  //   {
-  //     name: "Netflix",
-  //     domain: "www.netflix.com",
-  //     results: "20.27 Emails",
-  //     logo:
-  //       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg",
-  //   },
-  //   {
-  //     name: "Amazon",
-  //     domain: "www.amazon.com",
-  //     results: "39.14 Emails",
-  //     logo:
-  //       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg",
-  //   },
+// domains = [
+//   {
+//     name: "Netflix",
+//     domain: "www.netflix.com",
+//     results: "2.978 Emails",
+//     logo:
+//       "https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg",
+//   },
+//   {
+//     name: "Amazon",
+//     domain: "www.amazon.com",
+//     results: "39.14 Emails",
+//     logo:
+//       "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg",
+//   },
+//   {
+//     name: "Netflix",
+//     domain: "www.netflix.com",
+//     results: "20.27 Emails",
+//     logo:
+//       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg",
+//   },
+//   {
+//     name: "Amazon",
+//     domain: "www.amazon.com",
+//     results: "39.14 Emails",
+//     logo:
+//       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg",
+//   },
 
-  //   {
-  //     name: "Netflix",
-  //     domain: "www.amazon.com",
-  //     results: "39.14 Emails",
-  //     logo:
-  //       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg",
-  //   },
+//   {
+//     name: "Netflix",
+//     domain: "www.amazon.com",
+//     results: "39.14 Emails",
+//     logo:
+//       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg",
+//   },
 
-  //   {
-  //     name: "Amazon",
-  //     domain: "www.amazon.com",
-  //     results: "39.14 Emails",
-  //     logo:
-  //       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg",
-  //   },
+//   {
+//     name: "Amazon",
+//     domain: "www.amazon.com",
+//     results: "39.14 Emails",
+//     logo:
+//       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg",
+//   },
 
-  //   {
-  //     name: "Netflix",
-  //     domain: "www.amazon.com",
-  //     results: "39.14 Emails",
-  //     logo:
-  //       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg",
-  //   },
-  // ];
+//   {
+//     name: "Netflix",
+//     domain: "www.amazon.com",
+//     results: "39.14 Emails",
+//     logo:
+//       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg",
+//   },
+// ];
 
   leads;
 
@@ -104,16 +101,18 @@ export class DashboardComponent implements OnInit {
   lead_email = '';
   lead_domain = '';
   offset = 0;
-  limit = 8;
-  private showError: boolean;
+  limit = 1000;
+  private
+  showError: boolean;
   showNoRecord = false;
 
-  @Output() messageEvent = new EventEmitter<Leads>();
+  @Output()
+  messageEvent = new EventEmitter<Leads>();
 
   leadObj: Leads = new Leads(
     (this.lead_domain = this.val),
     (this.offset = 0),
-    (this.limit = 8)
+    (this.limit = 1000)
   );
 
 
@@ -140,9 +139,12 @@ export class DashboardComponent implements OnInit {
 
     console.log(this.val);
     this.leadObj.domain = this.val;
-    console.log(this.leadObj);
+    console.log('this is a lead object' + this.leadObj);
     this.api.leadByDomain(this.leadObj).subscribe((lead) => {
-      console.log('Lead', lead);
+      console.log('lead', lead);
+      if (Object.keys(lead).length < 8) {
+        this.isDisableButton = true;
+      }
       if (Object.keys(lead).length > 0) {
 
         this.spinner.show();
@@ -152,7 +154,6 @@ export class DashboardComponent implements OnInit {
         }, 1000);
         this.showEmailSearch = true;
         this.showNoRecord = false;
-
       } else {
         this.spinner.show();
         setTimeout(() => {
@@ -162,6 +163,7 @@ export class DashboardComponent implements OnInit {
         this.showEmailSearch = false;
         this.showNoRecord = true;
       }
+
       this.parentMessage = lead;
       this.isDisableButton = false;
       console.log('disable value', this.isDisableButton);
