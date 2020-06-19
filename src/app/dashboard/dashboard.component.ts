@@ -38,60 +38,6 @@ export class DashboardComponent implements OnInit {
 
 
   keyword = 'name';
-// domains = [
-//   {
-//     name: "Netflix",
-//     domain: "www.netflix.com",
-//     results: "2.978 Emails",
-//     logo:
-//       "https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg",
-//   },
-//   {
-//     name: "Amazon",
-//     domain: "www.amazon.com",
-//     results: "39.14 Emails",
-//     logo:
-//       "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg",
-//   },
-//   {
-//     name: "Netflix",
-//     domain: "www.netflix.com",
-//     results: "20.27 Emails",
-//     logo:
-//       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg",
-//   },
-//   {
-//     name: "Amazon",
-//     domain: "www.amazon.com",
-//     results: "39.14 Emails",
-//     logo:
-//       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg",
-//   },
-
-//   {
-//     name: "Netflix",
-//     domain: "www.amazon.com",
-//     results: "39.14 Emails",
-//     logo:
-//       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg",
-//   },
-
-//   {
-//     name: "Amazon",
-//     domain: "www.amazon.com",
-//     results: "39.14 Emails",
-//     logo:
-//       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg",
-//   },
-
-//   {
-//     name: "Netflix",
-//     domain: "www.amazon.com",
-//     results: "39.14 Emails",
-//     logo:
-//       "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg",
-//   },
-// ];
 
   leads;
 
