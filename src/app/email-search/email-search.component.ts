@@ -149,20 +149,22 @@ export class EmailSearchComponent implements OnInit {
   //   this.counterValue--;
   // }
   //
-  // emailList() {
-  //   this.showEmailList = !this.showEmailList;
-  //   console.log(this.nameValue);
-  //   this.leadObj.offset = 0;
-  //   this.leadObj.domain = this.domainName;
-  //   this.leadObj.limit = 8;
-  //   this.leadObj.name = this.nameValue;
-  //   this.api.leadByName(this.leadObj).subscribe((a) => {
-  //     console.log('Lead2', a);
-  //     this.childMessage = a;
-  //     this.nameValue = '';
-  //   });
-  //   (document.getElementById('showMore') as HTMLButtonElement).disabled = false;
-  // }
+  p: number;
+
+  emailList() {
+    this.showEmailList = !this.showEmailList;
+    console.log(this.nameValue);
+    this.leadObj.offset = 0;
+    this.leadObj.domain = this.domainName;
+    this.leadObj.limit = 8;
+    this.leadObj.name = this.nameValue;
+    this.api.leadByName(this.leadObj).subscribe((a) => {
+      console.log('Lead2', a);
+      this.childMessage = a;
+      this.nameValue = '';
+    });
+    (document.getElementById('showMore') as HTMLButtonElement).disabled = false;
+  }
 
   ngOnInit() {
 
@@ -175,9 +177,11 @@ export class EmailSearchComponent implements OnInit {
   }
 
   private getArray() {
+    console.log(this.nameValue);
+    this.emailList();
     this.api.leadByDomain(this.leadObj).subscribe((a) => {
       console.log('Lead2', a);
-      this.dataSource.paginator = this.paginator;
+      // this.dataSource.paginator = this.paginator;
       console.log('data source is ' + this.dataSource)
     });
     this.api.leadByName(this.leadObj).subscribe((a) => {
